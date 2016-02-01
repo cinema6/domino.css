@@ -1,0 +1,50 @@
+{
+  "name": "domino.css",
+  "version": "0.0.0",
+  "description": "Extends CSS with rules that modify DOM structure.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test",
+    "prepublish": "npm test",
+    "tdd": "grunt tdd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cinema6/domino.css.git"
+  },
+  "keywords": [
+    "css",
+    "dom",
+    "styles",
+    "stylesheet",
+    "flexbox",
+    "css",
+    "nesting",
+    "css",
+    "ordering"
+  ],
+  "author": "Reelcontent, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cinema6/domino.css/issues"
+  },
+  "homepage": "https://github.com/cinema6/domino.css#readme",
+  "devDependencies": {
+    "brfs": "^1.4.3",
+    "browserify": "^13.0.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.12.0",
+    "grunt-karma": "^0.12.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-browserify": "^5.0.1",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "phantomjs-prebuilt": "^2.1.3",
+    "proxyquire": "^1.7.3",
+    "proxyquire-universal": "^1.0.8",
+    "proxyquireify": "^3.1.0",
+    "watchify": "^3.7.0"
+  }
+}
