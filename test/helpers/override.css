@@ -1,0 +1,10 @@
+header {
+    -domino-container: div.main-container;
+}
+
+@media only screen and (min-width: 768px) {
+    nav {
+        -domino-container: '.footer-container';
+        -domino-order: 1000;
+    }
+}

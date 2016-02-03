@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="../helpers/styles.css">
+        <style>
+            h3.footer {
+                -domino-container: footer;
+            }
+
+            p.copyright {
+                -domino-container: body;
+                -domino-order: 1000;
+            }
+        </style>
+        <link rel="stylesheet" href="../helpers/override.css">
+
+        <link rel="author" href="mailto:josh@reelcontent.com">
+
+        <style>
+            .footer {
+                -domino-container: footer;
+            }
+
+            h1.title {
+                -domino-container: div.footer-container;
+                -domino-order: -500;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main wrapper clearfix">
+            <p>This is my content!</p>
+        </div> <!-- #main -->
+
+        <header class="wrapper clearfix"></header>
+        <h1 class="title">h1.title</h1>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#">nav ul li a</a></li>
+                <li><a href="#">nav ul li a</a></li>
+                <li><a href="#">nav ul li a</a></li>
+            </ul>
+        </nav>
+
+        <footer class="wrapper"></footer>
+        <h3 class="footer">footer</h3>
+
+        <div class="main-container"></div>
+        <div class="header-container"></div>
+        <div class="footer-container"></div>
+
+        <p class="copyright">2016</p>
+    </body>
+</html>

@@ -48,6 +48,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "css": "^2.2.1"
+    "css": "^2.2.1",
+    "superagent": "^1.7.2"
   }
 }
