@@ -41,12 +41,58 @@ module.exports = function gruntfile(grunt) {
                     singleRun: true
                 }
             }
+        },
+
+        clean: {
+            build: ['dist']
+        },
+        browserify: {
+            build: {
+                options: {
+                    browserifyOptions: {
+                        standalone: 'dominoCSS'
+                    }
+                },
+                files: [
+                    {
+                        src: 'index.js',
+                        dest: 'dist/domino-css.js'
+                    },
+                    {
+                        src: 'runtime.js',
+                        dest: 'dist/domino-css--runtime.js'
+                    }
+                ]
+            }
+        },
+        uglify: {
+            build: {
+                options: {
+                    screwIE8: true
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'dist',
+                        src: '*.js',
+                        dest: 'dist/',
+                        ext: '.min.js',
+                        extDot: 'last'
+                    }
+                ]
+            }
         }
     });
 
     grunt.registerTask('test', [
         'karma:test',
         'jshint:code'
+    ]);
+
+    grunt.registerTask('build', [
+        'clean:build',
+        'browserify:build',
+        'uglify:build'
     ]);
 
     grunt.registerTask('tdd', ['karma:tdd']);
