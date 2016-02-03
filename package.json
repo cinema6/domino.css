@@ -10,7 +10,8 @@
     "test": "grunt test",
     "prepublish": "npm test && npm run build",
     "tdd": "grunt tdd",
-    "build": "grunt build"
+    "build": "grunt build",
+    "examples": "grunt server"
   },
   "repository": {
     "type": "git",
@@ -40,8 +41,10 @@
     "grunt-browserify": "^4.0.1",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-connect": "^0.11.2",
     "grunt-contrib-jshint": "^0.12.0",
     "grunt-contrib-uglify": "^0.11.1",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-karma": "^0.12.1",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.19",

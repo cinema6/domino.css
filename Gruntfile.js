@@ -44,15 +44,17 @@ module.exports = function gruntfile(grunt) {
         },
 
         clean: {
-            build: ['dist']
+            build: ['dist'],
+            server: ['examples/.build']
         },
         browserify: {
+            options: {
+                browserifyOptions: {
+                    standalone: 'dominoCSS'
+                }
+            },
+
             build: {
-                options: {
-                    browserifyOptions: {
-                        standalone: 'dominoCSS'
-                    }
-                },
                 files: [
                     {
                         src: 'index.js',
@@ -61,6 +63,21 @@ module.exports = function gruntfile(grunt) {
                     {
                         src: 'runtime.js',
                         dest: 'dist/domino-css--runtime.js'
+                    }
+                ]
+            },
+            server: {
+                options: {
+                    watch: true
+                },
+                files: [
+                    {
+                        src: 'index.js',
+                        dest: 'examples/.build/domino-css.js'
+                    },
+                    {
+                        src: 'runtime.js',
+                        dest: 'examples/.build/domino-css--runtime.js'
                     }
                 ]
             }
@@ -81,6 +98,26 @@ module.exports = function gruntfile(grunt) {
                     }
                 ]
             }
+        },
+
+        connect: {
+            server: {
+                options: {
+                    base: 'examples',
+                    livereload: true,
+                    open: true
+                }
+            }
+        },
+        watch: {
+            server: {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    'examples/**'
+                ]
+            }
         }
     });
 
@@ -93,6 +130,12 @@ module.exports = function gruntfile(grunt) {
         'clean:build',
         'browserify:build',
         'uglify:build'
+    ]);
+
+    grunt.registerTask('server', [
+        'browserify:server',
+        'connect:server',
+        'watch:server'
     ]);
 
     grunt.registerTask('tdd', ['karma:tdd']);
