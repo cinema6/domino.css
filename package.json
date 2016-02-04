@@ -7,7 +7,12 @@
     "domino-css": "./bin/domino-css.js"
   },
   "files": [
-    "dist"
+    "./bin",
+    "./dist",
+    "./lib",
+    "./compiler.js",
+    "./index.js",
+    "./runtime.js"
   ],
   "scripts": {
     "test": "grunt test",
