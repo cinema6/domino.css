@@ -79,6 +79,62 @@ describe('lib/parser.js: parse(stylesheet)', function() {
                         selector: '.footer-container',
                         value: 300
                     }
+                ],
+                elements: [
+                    {
+                        selector: 'body',
+                        value: [
+                            {
+                                tagName: 'div',
+                                attributes: [
+                                    { name: 'id', value: 'header' },
+                                    { name: 'class', value: 'header-container container' },
+                                    { name: 'style', value: 'color: red;' },
+                                    { name: 'data-name', value: 'header' }
+                                ]
+                            },
+                            {
+                                tagName: 'div',
+                                attributes: [
+                                    { name: 'id', value: 'main' },
+                                    { name: 'class', value: 'main-container container' },
+                                    { name: 'style', value: 'color: blue;' },
+                                    { name: 'data-name', value: 'main' }
+                                ]
+                            },
+                            {
+                                tagName: 'div',
+                                attributes: [
+                                    { name: 'id', value: 'footer' },
+                                    { name: 'class', value: 'footer-container container' },
+                                    { name: 'style', value: 'color: white;' },
+                                    { name: 'data-name', value: 'footer' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        selector: '.header-container',
+                        value: [
+                            {
+                                tagName: 'section',
+                                attributes: [
+                                    { name: 'class', value: 'main wrapper clearfix' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        selector: '.main-container',
+                        value: [
+                            {
+                                tagName: 'span',
+                                attributes: [
+                                    { name: 'id', value: 'wrap' }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             });
         });
@@ -99,6 +155,19 @@ describe('lib/parser.js: parse(stylesheet)', function() {
                                 selector: 'footer',
                                 value: 50
                             }
+                        ],
+                        elements: [
+                            {
+                                selector: 'footer',
+                                value: [
+                                    {
+                                        tagName: 'span',
+                                        attributes: [
+                                            { name: 'class', value: 'footer-wrap' }
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 },
@@ -111,7 +180,8 @@ describe('lib/parser.js: parse(stylesheet)', function() {
                                 selector: '.main-container',
                                 value: 500
                             }
-                        ]
+                        ],
+                        elements: []
                     }
                 }
             ]);

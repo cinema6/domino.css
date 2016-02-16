@@ -68,6 +68,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "css": "^2.2.1",
+    "css-selector-parser": "^1.1.0",
     "superagent": "^1.7.2",
     "through2": "^2.0.0"
   }

@@ -58,6 +58,10 @@ textarea {
 
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    -domino-elements:
+        div#header.header-container.container[style="color: red;"][data-name="header"],
+        #main.main-container.container[style="color: blue;"][data-name="main"],
+        div#footer.footer-container.container[style="color: white;"][data-name="footer"];
 }
 
 header.wrapper {
@@ -81,11 +85,13 @@ header.wrapper {
 .header-container {
     border-bottom: 20px solid #e44d26;
     -domino-order: 100;
+    -domino-elements: section.main.wrapper.clearfix;
 }
 
 .main-container {
     -domino-container: body;
     -domino-order: 200;
+    -domino-elements: span#wrap;
 }
 
 .footer-container {
@@ -234,6 +240,7 @@ nav a:hover {
     footer {
         -domino-container: .main-container;
         -domino-order: 50;
+        -domino-elements: span.footer-wrap;
     }
 
 /* ========================
