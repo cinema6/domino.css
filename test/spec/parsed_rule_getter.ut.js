@@ -50,6 +50,9 @@ describe('lib/parsed_rule_getter.js: getParsedRules(element, callback)', functio
                     })),
                     order: concat.apply([], global.__dominoCSSRules__.map(function(rules) {
                         return rules.rules.order;
+                    })),
+                    elements: concat.apply([], global.__dominoCSSRules__.map(function(rules) {
+                        return rules.rules.elements;
                     }))
                 },
                 mediaQueries: concat.apply([], global.__dominoCSSRules__.map(function(rules) {
@@ -70,7 +73,8 @@ describe('lib/parsed_rule_getter.js: getParsedRules(element, callback)', functio
                 expect(callback).toHaveBeenCalledWith(null, {
                     rules: {
                         container: [],
-                        order: []
+                        order: [],
+                        elements: []
                     },
                     mediaQueries: []
                 });

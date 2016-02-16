@@ -118,6 +118,31 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                             selector: 'ul.nav-list',
                             value: 100
                         }
+                    ],
+                    elements: [
+                        {
+                            selector: 'body',
+                            value: [
+                                {
+                                    tagName: 'div',
+                                    attributes: [
+                                        { name: 'class', value: 'header-container' }
+                                    ]
+                                },
+                                {
+                                    tagName: 'div',
+                                    attributes: [
+                                        { name: 'class', value: 'main-container' }
+                                    ]
+                                },
+                                {
+                                    tagName: 'div',
+                                    attributes: [
+                                        { name: 'class', value: 'footer-container' }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 mediaQueries: [
@@ -135,7 +160,8 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                                     selector: 'footer',
                                     value: 50
                                 }
-                            ]
+                            ],
+                            elements: []
                         }
                     },
                     {
@@ -147,7 +173,8 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                                     selector: '.main-container',
                                     value: 500
                                 }
-                            ]
+                            ],
+                            elements: []
                         }
                     }
                 ]
@@ -158,6 +185,12 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
 
         afterEach(function() {
             document.body.removeChild(frame);
+        });
+
+        it('should create the container elements', function() {
+            expect(element.querySelectorAll('body > div.header-container').length).toBe(1, 'body > div.header-container');
+            expect(element.querySelectorAll('body > div.main-container').length).toBe(1, 'body > div.main-container');
+            expect(element.querySelectorAll('body > div.footer-container').length).toBe(1, 'body > div.footer-container');
         });
 
         it('should move elements to the proper container', function() {
@@ -200,7 +233,7 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
             expect(element.querySelector('ul.nav-list').previousElementSibling).toBe(element.querySelector('.copyright'), 'ul.nav-list');
         });
 
-        describe('again', function() {
+        fdescribe('again', function() {
             var Node;
             var originalHTML, newHTML;
 
