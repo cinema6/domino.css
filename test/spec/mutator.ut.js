@@ -2,6 +2,7 @@
 
 var proxyquire = require('proxyquire');
 var fs = require('fs');
+var shuffle = require('knuth-shuffle').knuthShuffle;
 
 function arrayify(collection) {
     return Array.prototype.slice.call(collection);
@@ -275,6 +276,59 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                 expect(element.querySelector('footer').parentNode).toBe(element.querySelector('.main-container'), 'footer');
                 expect(element.querySelector('footer').previousElementSibling).toBe(element.querySelector('div.main'), 'footer');
                 expect(element.querySelector('.main-container').previousElementSibling).toBe(element.querySelector('.footer-container'), '.main-container');
+            });
+        });
+
+        describe('with more complicated structure', function() {
+            beforeEach(function() {
+                frame.contentWindow.document.write([
+                    '<body>',
+                    '    <div class="card__group">',
+                    '        <div class="sidebar__group">',
+                    '            <div class="sponsor__group"></div>',
+                    '            <div class="social__group"></div>',
+                    '        </div>',
+                    '        <div class="description__group"></div>',
+                    '        <div class="other__group"></div>',
+                    '        <div class="video__group"></div>',
+                    '        <div class="title__group">',
+                    '            <div class="cta__group"></div>',
+                    '        </div>',
+                    '    </div>',
+                    '</body>'
+                ].join('\n'));
+                frame.contentWindow.document.close();
+
+                rules = {
+                    rules: {
+                        container: [
+                            { selector: '.cta__group', value: '.card__group' }
+                        ],
+                        order: [
+                            { selector: '.sidebar__group', value: 4 },
+                            { selector: '.description__group', value: 6 },
+                            { selector: '.video__group', value: 3 },
+                            { selector: '.title__group', value: 1 },
+                            { selector: '.cta__group', value: 5 },
+                            { selector: '.other__group', value: 2 }
+                        ]
+                    },
+                    mediaQueries: []
+                };
+                element = frame.contentWindow.document.documentElement;
+
+                applyRules(rules, element);
+            });
+
+            it('should work', function() {
+                expect(Array.prototype.slice.call(element.querySelector('.card__group').children)).toEqual([
+                    element.querySelector('.title__group'),
+                    element.querySelector('.other__group'),
+                    element.querySelector('.video__group'),
+                    element.querySelector('.sidebar__group'),
+                    element.querySelector('.cta__group'),
+                    element.querySelector('.description__group'),
+                ], 'WRONG ORDER: \n\n' + element.outerHTML);
             });
         });
 
@@ -630,6 +684,66 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                         assertNoMovesExcept(['delta']);
                         expect(list.insertBefore).toHaveBeenCalledWith(items.delta, items.alpha);
                     });
+                });
+            });
+
+            describe('and the list is reversed', function() {
+                var expected;
+
+                beforeEach(function() {
+                    rules.rules.order = [
+                        { selector: '#alpha', value: 2500 },
+                        { selector: '#bravo', value: 2400 },
+                        { selector: '#charlie', value: 2300 },
+                        { selector: '#delta', value: 2200 },
+                        { selector: '#echo', value: 2100 },
+                        { selector: '#foxtrot', value: 2000 },
+                        { selector: '#golf', value: 1900 },
+                        { selector: '#hotel', value: 1800 },
+                        { selector: '#india', value: 1700 },
+                        { selector: '#juliett', value: 1600 },
+                        { selector: '#kilo', value: 1500 },
+                        { selector: '#lima', value: 1400 },
+                        { selector: '#mike', value: 1300 },
+                        { selector: '#november', value: 1200 },
+                        { selector: '#oscar', value: 1100 },
+                        { selector: '#papa', value: 1000 },
+                        { selector: '#quebec', value: 900 },
+                        { selector: '#romeo', value: 800 },
+                        { selector: '#sierra', value: 700 },
+                        { selector: '#tango', value: 600 },
+                        { selector: '#uniform', value: 500 },
+                        { selector: '#victor', value: 400 },
+                        { selector: '#whiskey', value: 300 },
+                        { selector: '#x-ray', value: 200 },
+                        { selector: '#yankee', value: 100 },
+                        { selector: '#zulu', value: 0 }
+                    ];
+
+                    expected = Array.prototype.slice.call(list.children).reverse();
+
+                    applyRules(rules, element);
+                });
+
+                it('should reverese the list', function() {
+                    expect(Array.prototype.slice.call(list.children)).toEqual(expected, list.outerHTML);
+                });
+            });
+
+            describe('if given a random re-ordering', function() {
+                var expected;
+
+                beforeEach(function() {
+                    expected = shuffle(Array.prototype.slice.call(list.children));
+                    rules.rules.order = expected.map(function(element, index) {
+                        return { selector: '#' + element.id, value: index * 100 };
+                    });
+
+                    applyRules(rules, element);
+                });
+
+                it('should reorder the elements', function() {
+                    expect(Array.prototype.slice.call(list.children)).toEqual(expected, list.outerHTML);
                 });
             });
         });
