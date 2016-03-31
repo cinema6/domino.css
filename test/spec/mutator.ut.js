@@ -88,6 +88,14 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                         {
                             selector: '.copyright',
                             value: 'nav'
+                        },
+                        {
+                            selector: '.foo-test',
+                            value: '.foo-container'
+                        },
+                        {
+                            selector: '.foo-test',
+                            value: '.main-container'
                         }
                     ],
                     order: [
@@ -106,6 +114,10 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
                         {
                             selector: '.footer-container',
                             value: 300
+                        },
+                        {
+                            selector: '.foo-container',
+                            value: 400
                         },
                         {
                             selector: 'h1.title',
@@ -189,6 +201,10 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
             arrayify(element.querySelectorAll('nav')).forEach(function(node) {
                 expect(node.parentNode).toBe(element.querySelector('header.wrapper'), 'nav');
             });
+
+            arrayify(element.querySelectorAll('.foo-test')).forEach(function(node) {
+                expect(node.parentNode).toBe(element.querySelector('.main-container'), 'foo-test');
+            });
         });
 
         it('should move elements into the proper order', function() {
@@ -236,7 +252,7 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
             it('should update the DOM to reflect the new order', function() {
                 expect(element.querySelector('.main-container').previousElementSibling).toBe(null, '.main-container');
                 expect(element.querySelector('.main-container').nextElementSibling).toBe(element.querySelector('.footer-container'), '.main-container');
-                expect(element.querySelector('.footer-container').nextElementSibling).toBe(element.querySelector('.header-container'), '.footer-container');
+                expect(element.querySelector('.footer-container').nextElementSibling).toBe(element.querySelector('.foo-container'), '.footer-container');
             });
         });
 
@@ -275,7 +291,7 @@ describe('lib/mutator.js: applyRules(rules, element)', function() {
             it('should activate all media queries', function() {
                 expect(element.querySelector('footer').parentNode).toBe(element.querySelector('.main-container'), 'footer');
                 expect(element.querySelector('footer').previousElementSibling).toBe(element.querySelector('div.main'), 'footer');
-                expect(element.querySelector('.main-container').previousElementSibling).toBe(element.querySelector('.footer-container'), '.main-container');
+                expect(element.querySelector('.main-container').previousElementSibling).toBe(element.querySelector('.foo-container'), '.main-container');
             });
         });
 
